@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { Post, PostsService } from './posts.service';
 
 describe('PostsService', () => {
@@ -13,10 +14,20 @@ describe('PostsService', () => {
   });
 
   it('should add a new post', () => {
-    // реализуйте тест-кейс
+    const createdPost = postsService.create(post);
+
+    expect(createdPost).toEqual({
+      id: '2',
+      text: post.text,
+      date: expect.any(String),
+    });
+    expect(Date.parse(createdPost.date)).not.toBeNaN();
+    expect(postsService.find(createdPost.id)).toEqual(createdPost);
   });
 
   it('should find a post', () => {
-    // реализуйте тест-кейс
+    const createdPost = postsService.create(post);
+
+    expect(postsService.find(createdPost.id)).toEqual(createdPost);
   });
 });
